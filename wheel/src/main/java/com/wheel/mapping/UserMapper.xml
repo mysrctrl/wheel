@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="test.IDao.UserMapper" >
+  <resultMap id="BaseResultMap" type="test.domain.User" >
+    <result column="CODE_NO" property="codeNo" jdbcType="INTEGER" />
+    <result column="CODE_VALUE" property="codeValue" jdbcType="VARCHAR" />
+    <result column="CODE_NAME" property="codeName" jdbcType="NVARCHAR" />
+    <result column="CODE_CONTENT" property="codeContent" jdbcType="NVARCHAR" />
+    <result column="EXECUTION_DATE" property="executionDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <insert id="insert" parameterType="test.domain.User" >
+    insert into DIM_COMMON (CODE_NO, CODE_VALUE, CODE_NAME, 
+      CODE_CONTENT, EXECUTION_DATE)
+    values (#{codeNo,jdbcType=INTEGER}, #{codeValue,jdbcType=VARCHAR}, #{codeName,jdbcType=NVARCHAR}, 
+      #{codeContent,jdbcType=NVARCHAR}, #{executionDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="test.domain.User" >
+    insert into DIM_COMMON
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="codeNo != null" >
+        CODE_NO,
+      </if>
+      <if test="codeValue != null" >
+        CODE_VALUE,
+      </if>
+      <if test="codeName != null" >
+        CODE_NAME,
+      </if>
+      <if test="codeContent != null" >
+        CODE_CONTENT,
+      </if>
+      <if test="executionDate != null" >
+        EXECUTION_DATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="codeNo != null" >
+        #{codeNo,jdbcType=INTEGER},
+      </if>
+      <if test="codeValue != null" >
+        #{codeValue,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null" >
+        #{codeName,jdbcType=NVARCHAR},
+      </if>
+      <if test="codeContent != null" >
+        #{codeContent,jdbcType=NVARCHAR},
+      </if>
+      <if test="executionDate != null" >
+        #{executionDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>
